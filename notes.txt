@@ -1,0 +1,103 @@
+//void drawOptFlowMap(const cv::Mat& flow, cv::Mat& cflowmap, int step, double scale, const cv::Scalar& color);
+//int getROI(std::string file);
+
+//int getROI(std::string file) {
+//    cv::VideoCapture cap(file.c_str());
+//    if (!cap.isOpened()) {
+//        std::cerr << "Could not open file" << std::endl;
+//        return 1;
+//    }
+
+//    cv::Mat frame, image;
+//    cap >> frame;
+
+//    cv::namedWindow("Video");
+
+//    cv::Mat prevImg, curImg;
+//    cv::Mat cflow, flow;
+//    std::vector<cv::KeyPoint> prevFeatures, curFeatures;
+//    std::vector<cv::Point2f> prevPoints, curPoints;
+//    std::vector<uchar> status;
+//    std::vector<float> err;
+
+//    cv::GFTTDetector gfttd(500, 0.01, 1);
+
+//    DenseTrack dt;
+//    cv::Mat eig;
+//    cv::RNG rng(0xFFFFFF);
+
+//    while (true) {
+//        cap >> frame;
+//        //int frameNum = cap.get(CV_CAP_PROP_POS_FRAMES);
+//        if (frame.empty()) {
+//             break;
+//        }
+
+//        frame.copyTo(image);
+//        if(image.channels()>1){
+//            cv::cvtColor(image, curImg, CV_RGB2GRAY);
+//        } else {
+//            curImg = image;
+//        }
+//        //cv::GaussianBlur(curImg, curImg, cv::Size(3,3), 0, 0);
+
+//        /*curPoints.clear();
+//        int iColor = (unsigned)rng;
+//        cv::Scalar color(iColor&255, (iColor>>8)&255, (iColor>>16)&255);
+//        dt.sampleDense(curImg, eig, prevPoints, curPoints, 0.01, 5);
+//        for (int i=0; i<curPoints.size(); i++) {
+//                cv::circle(image, curPoints[i], 2, color, -1, 8);
+//        }
+//        prevPoints = curPoints;
+//        cv::imshow("Video", image);*/
+
+//#if 1
+//        if (prevPoints.size() < 50) {
+//            curPoints.clear();
+//            gfttd.detect(curImg, curFeatures);
+//            for(std::vector<cv::KeyPoint>::iterator it=curFeatures.begin(); it!= curFeatures.end(); it++) {
+//                curPoints.push_back(it->pt);
+//            }
+//        }
+//        else if (!prevPoints.empty()){
+//            calcOpticalFlowPyrLK (prevImg, curImg, prevPoints, curPoints, status, err);
+
+//            size_t i, k;
+//            for (i=k=0; i<curPoints.size(); i++) {
+//                if (status[i]) {
+//                    curPoints[k++] = curPoints[i];
+//                    cv::circle(frame, curPoints[i], 2, cv::Scalar(0, 255, 0), -1, 8);
+//                    cv::line(frame, prevPoints[i], curPoints[i], cv::Scalar(0,255,0), 2);
+//                }
+//            }
+//            curPoints.resize(k);
+
+//            cv::imshow("Video", frame);
+
+//           /* background = curImg - prevImg;//background*0.6 + frame*0.4;
+//            cv::Mat diff = cv::abs(frame-background);
+//            cv::threshold(diff, diff, 100, 255, cv::THRESH_BINARY_INV);
+//            cv::erode(diff, diff, cv::Mat());
+//            cv::dilate(diff, diff, cv::Mat());
+//            cv::imshow("Video", diff);
+//           */
+
+//           /* cv::calcOpticalFlowFarneback(prevImg, curImg, flow, 0.5, 3, 20, 3, 5, 1.5, 0);
+//            cv::cvtColor(prevImg, cflow, CV_GRAY2BGR);
+//            drawOptFlowMap(flow, cflow, 16, 1.5, CV_RGB(0, 255, 0));
+//            cv::imshow("Video", cflow);
+//           */
+//        }
+//#endif
+//        if ((char)cv::waitKey(30) == 27) {
+//           break;
+//        }
+
+//        curImg.copyTo(prevImg);
+//        std::swap(curPoints, prevPoints);
+//    }
+
+//    cv::destroyWindow("Video");
+//    cap.release();
+//    return 0;
+//}
